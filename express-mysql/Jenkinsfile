@@ -17,7 +17,7 @@ pipeline {
   environment {
       // General Variables for Pipeline
       
-      PROJECT_ROOT = '/home/jesus/Documents/ejemp_docker/docker-pirate/express-mysql/app'
+      PROJECT_ROOT = 'express-mysql/app'
       EMAIL_ADDRESS = 'jesus.brayan.payegmail.com'
       REGISTRY = 'mykrampus/docker-pirate-express'
   }
@@ -33,7 +33,7 @@ pipeline {
       stage('Checkout') {
         steps {
         // Get Github repo using Github credentials (previously added to Jenkins credentials)
-        checkout([$class: 'GitSCM', branches: [[name: '*/v2']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jesusBray/docker-pirate']]])        }
+        checkout([$class: 'GitSCM', branches: [[name: '*/v2.1-main-work']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jesusBray/docker-pirate']]])        }
       }
       stage('Install dependencies') {
         steps {
