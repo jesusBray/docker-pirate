@@ -29,6 +29,8 @@ services:
     container_name: my_custom_sonarqube
     # build: ./sonarqube_home
     image: sonarqube:lts
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
     ports:
       - "9000:9000"
     networks:
