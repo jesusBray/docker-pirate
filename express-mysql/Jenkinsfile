@@ -53,13 +53,6 @@ pipeline {
           sh "cd ${PROJECT_ROOT}; npm run coverage"
         }
       }
-      stage('scan') {
-          environment {
-            // Previously defined in the Jenkins "Global Tool Configuration"
-            scannerHome = tool 'sonar-scanner'
-          }
-
-      }
       stage('Build docker-image') {
         steps {
           sh "cd ./${PROJECT_ROOT};docker build -t ${REGISTRY}:${BUILD_NUMBER} . "
