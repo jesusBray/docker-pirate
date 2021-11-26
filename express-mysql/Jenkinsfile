@@ -1,12 +1,3 @@
-// Function to validate that the message returned from SonarQube is ok
-def qualityGateValidation(qg) {
-  if (qg.status != 'OK') {
-    // emailext body: "WARNING SANTI: Code coverage is lower than 80% in Pipeline ${BUILD_NUMBER}", subject: 'Error Sonar Scan,   Quality Gate', to: "${EMAIL_ADDRESS}"
-    return true
-  }
-  // emailext body: "CONGRATS SANTI: Code coverage is higher than 80%  in Pipeline ${BUILD_NUMBER} - SUCCESS", subject: 'Info - Correct Pipeline', to: "${EMAIL_ADDRESS}"
-  return false
-}
 pipeline {
   agent any
 
@@ -15,8 +6,7 @@ pipeline {
   }
 
   environment {
-      // General Variables for Pipeline
-      
+      // General Variables for Pipeline      
       PROJECT_ROOT = 'express-mysql/app'
       EMAIL_ADDRESS = 'jesus.brayan.payegmail.com'
       REGISTRY = 'mykrampus/docker-pirate-express'
@@ -25,14 +15,13 @@ pipeline {
   stages {
       stage('Hello') {
         steps {
-          // First stage is a sample hello-world step to verify correct Jenkins Pipeline
-          echo 'Hello World, I am Happy'
-          echo 'This is my amazing Pipeline'
+          // init 
+          echo 'Starting  project automation'
         }
       }
       stage('Checkout') {
         steps {
-        // Get Github repo using Github credentials (previously added to Jenkins credentials)
+        // Get Github repo using Github 
         checkout([$class: 'GitSCM', branches: [[name: '*/v2.1-main-work']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jesusBray/docker-pirate']]])        }
       }
       stage('Install dependencies') {
@@ -60,7 +49,7 @@ pipeline {
       }
       stage('Deploy docker-image') {
         steps {
-          // If the Dockerhub authentication stopped, do it again
+          // Dockerhub
           sh 'docker login'
           sh "docker push ${REGISTRY}:${BUILD_NUMBER}"
         }

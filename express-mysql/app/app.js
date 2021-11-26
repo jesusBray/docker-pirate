@@ -6,10 +6,10 @@ const router = require("./routes/developers.js");
 
 const PORT = process.env.APP_PORT || 3000;
 
-app.disable("etag"); // Disable cache 304 status-code
-app.use(morgan("short")); // Log server requests
-app.use(express.json()); // Parse JSON bodies (legacy was body-parser)
-app.use(router); // Expand routes functionalities with custom router
+app.disable("etag"); 
+app.use(morgan("short")); 
+app.use(express.json()); 
+app.use(router); 
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello, My name is Jesus." });
